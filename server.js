@@ -1,4 +1,6 @@
-var express = require('express') //llamamos a Express
+import express from 'express'
+//var express = require('express') //llamamos a Express
+
 var app = express()               
 
 var port = process.env.PORT || 3001  // establecemos nuestro puerto
@@ -57,7 +59,7 @@ app.get('/api/persons/:id', function(req, res) {
   app.post('/api/persons', function(req, res) {
     nombre = req.params.name
     number = req.params.number
-    if(nombre && number ){
+    if(nombre && number){
         person=persons.find((person)=>person.name==nombre)
         if(person){
             res.status(400).json({error:"el nombre debe ser unico, ya exite este"})
