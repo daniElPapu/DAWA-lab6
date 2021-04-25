@@ -50,19 +50,28 @@ app.get('/api/persons/:id', function(req, res) {
         res.send("Borrado Satisfactorio")
     }
     else{
-        res.status(404).send("Sorry can't find that!")
+        res.status(404).json("Sorry can't find that!")
     }
     
   })
   app.post('/api/persons', function(req, res) {
     nombre = req.params.name
     number = req.params.number
-    persons.push({
-        id: parseInt(Math.random()*3000+200),
-        name:nombre,
-        number:number
-    })
-    res.send('Registro Añadido')   
+    if(nombre && number ){
+        person=persons.find((person)=>person.name==nombre)
+        if(person){
+            res.status(400).json({error:"el nombre debe ser unico, ya exite este"})
+        }else{        
+            persons.push({
+                id: parseInt(Math.random()*3000+200),
+                name:nombre,
+                number:number
+            })
+        }
+        res.send('Registro Añadido')   
+    }else{
+        res.status(400).json({error:"Debe rellenar todos los campos"})
+    }
   })
 // iniciamos nuestro servidor
 app.listen(port)
