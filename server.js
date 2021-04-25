@@ -34,7 +34,14 @@ app.get('/info', function(req, res) {
     res.send("Phonebook has info for "+persons.length +" people <br> "+new Date()+"")   
 })
 app.get('/api/persons/:id', function(req, res) {
-    res.json(persons.find((person)=>person.id==req.params.id))
+    person = persons.find((person)=>person.id==req.params.id)
+    if( person){
+        res.json(person)
+    }
+    else{
+        res.status(404).send("Sorry can't find that!")
+    }
+    
   })
 // iniciamos nuestro servidor
 app.listen(port)
