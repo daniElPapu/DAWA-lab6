@@ -43,6 +43,17 @@ app.get('/api/persons/:id', function(req, res) {
     }
     
   })
+  app.get('/api/persons/:id/delete', function(req, res) {
+    person = persons.find((person)=>person.id===req.params.id)
+    if( person){
+        persons=persons.filter((person)=>person.id!==req.params.id)
+        res.send("Borrado Satisfactorio")
+    }
+    else{
+        res.status(404).send("Sorry can't find that!")
+    }
+    
+  })
 // iniciamos nuestro servidor
 app.listen(port)
 console.log('API escuchando en el puerto ' + port)
