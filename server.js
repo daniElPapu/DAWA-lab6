@@ -43,16 +43,26 @@ app.get('/api/persons/:id', function(req, res) {
     }
     
   })
-  app.get('/api/persons/:id/delete', function(req, res) {
-    person = persons.find((person)=>person.id===req.params.id)
-    if( person){
-        persons=persons.filter((person)=>person.id!==req.params.id)
+  app.get('/api/persons/delete/:id', function(req, res) {
+    person = persons.find((person)=>person.id==req.params.id)
+    if(person){
+        persons=persons.filter((person)=>person.id!=req.params.id)
         res.send("Borrado Satisfactorio")
     }
     else{
         res.status(404).send("Sorry can't find that!")
     }
     
+  })
+  app.post('/api/persons', function(req, res) {
+    nombre = req.params.name
+    number = req.params.number
+    persons.push({
+        id: parseInt(Math.random()*3000+200),
+        name:nombre,
+        number:number
+    })
+    res.send('Registro Añadido')   
   })
 // iniciamos nuestro servidor
 app.listen(port)
