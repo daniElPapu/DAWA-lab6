@@ -30,9 +30,12 @@ app.get('/', function(req, res) {
 app.get('/api/persons', function(req, res) {
     res.json(persons)   
   })
-app.get('/info/', function(req, res) {
+app.get('/info', function(req, res) {
     res.send("Phonebook has info for "+persons.length +" people <br> "+new Date()+"")   
 })
+app.get('/api/persons/:id', function(req, res) {
+    res.json(persons.find((person)=>person.id==req.params.id))
+  })
 // iniciamos nuestro servidor
 app.listen(port)
 console.log('API escuchando en el puerto ' + port)
